@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Template
 labels:
@@ -9,13 +10,12 @@ metadata:
     tags: microservice,jboss,spring
   name: coolstore-builds
 objects:
-# UI
 - apiVersion: v1
   kind: ImageStream
   metadata:
     name: web-ui
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: web-ui
   spec:
     tags:
@@ -25,7 +25,7 @@ objects:
   metadata:
     name: web-ui
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: web-ui
   spec:
     output:
@@ -35,16 +35,16 @@ objects:
     source:
       contextDir: coolstore-ui
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: NPM_MIRROR
-          value: ${NPM_MIRROR}
+          value: "${NPM_MIRROR}"
         - name: BOWER_MIRROR
-          value: ${BOWER_MIRROR}
+          value: "${BOWER_MIRROR}"
         forcePull: false
         from:
           kind: ImageStreamTag
@@ -54,26 +54,25 @@ objects:
     resources:
       limits:
         cpu: 500m
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Coolstore Gateway
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
     name: coolstore-gw
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: coolstore-gw
   status:
-    dockerImageRepository: ""
+    dockerImageRepository: ''
 - apiVersion: v1
   kind: BuildConfig
   metadata:
     name: coolstore-gw
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: coolstore-gw
   spec:
     output:
@@ -83,8 +82,8 @@ objects:
     source:
       contextDir: coolstore-gw
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
@@ -92,7 +91,7 @@ objects:
         - name: MAVEN_ARGS
           value: package -DskipTests -Dfabric8.skip -e -B -Pearly-access-repo
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         forcePull: false
         from:
           kind: ImageStreamTag
@@ -102,11 +101,10 @@ objects:
     resources:
       limits:
         cpu: 500m
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Inventory Service
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -130,14 +128,14 @@ objects:
     source:
       contextDir: inventory-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         forcePull: false
         from:
           kind: ImageStreamTag
@@ -147,17 +145,16 @@ objects:
     resources:
       limits:
         cpu: 1
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Catalog Service
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
     name: catalog
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: catalog
   spec:
     tags:
@@ -167,7 +164,7 @@ objects:
   metadata:
     name: catalog
     labels:
-      comp-required: "true"
+      comp-required: 'true'
       app: catalog
   spec:
     output:
@@ -177,14 +174,14 @@ objects:
     source:
       contextDir: catalog-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         forcePull: false
         from:
           kind: ImageStreamTag
@@ -194,11 +191,10 @@ objects:
     resources:
       limits:
         cpu: 500m
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Cart Service
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -222,26 +218,25 @@ objects:
     source:
       contextDir: cart-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         from:
           kind: DockerImage
-          name: java:openjdk-8-jdk
+          name: "${BUILDER_IMAGE_OSTEG}"
       type: Source
     resources:
       limits:
         cpu: 500m
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Pricing Rules Service
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -265,16 +260,16 @@ objects:
     source:
       contextDir: pricing-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: KIE_CONTAINER_DEPLOYMENT
-          value: ${KIE_CONTAINER_DEPLOYMENT}
+          value: "${KIE_CONTAINER_DEPLOYMENT}"
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         from:
           kind: ImageStreamTag
           name: jboss-decisionserver64-openshift:1.0
@@ -283,11 +278,10 @@ objects:
     resources:
       limits:
         cpu: 500m
-        memory: "2Gi"
+        memory: 2Gi
       requests:
-        cpu: "200m"
-        memory: "1Gi"
-# Rating service
+        cpu: 200m
+        memory: 1Gi
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -311,19 +305,18 @@ objects:
     source:
       contextDir: rating-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
         from:
           kind: DockerImage
-          name: java:openjdk-8-jdk
+          name: "${BUILDER_IMAGE_OSTEG}"
       type: Source
-# Reviews service
 - apiVersion: v1
   kind: ImageStream
   metadata:
@@ -347,14 +340,17 @@ objects:
     source:
       contextDir: review-service
       git:
-        ref: ${GIT_REF}
-        uri: ${GIT_URI}
+        ref: "${GIT_REF}"
+        uri: "${GIT_URI}"
       type: Git
     strategy:
       sourceStrategy:
         env:
         - name: MAVEN_MIRROR_URL
-          value: ${MAVEN_MIRROR_URL}
+          value: "${MAVEN_MIRROR_URL}"
+        from:
+          kind: DockerImage
+          name: "${BUILDER_IMAGE_OSTEG}"
       type: Source
 parameters:
 - description: Git source URI for application
@@ -367,16 +363,22 @@ parameters:
   name: GIT_REF
   required: true
   value: master
-- description: Maven mirror url. If nexus is deployed locally, use nexus url (e.g. http://nexus.ci:8081/content/groups/public/)
+- description: Maven mirror url. If nexus is deployed locally, use nexus url (e.g.
+    http://nexus.ci:8081/content/groups/public/)
   displayName: Maven mirror url
   name: MAVEN_MIRROR_URL
 - description: NPM mirror url. If nexus is deployed locally, use nexus url (e.g. http://nexus.ci:8081/repository/npm/)
   displayName: NPM mirror url
   name: NPM_MIRROR
-- description: Bower mirror url. If nexus is deployed locally, use nexus url (e.g. http://nexus.ci:8081/repository/bower-mirror/)
+- description: Bower mirror url. If nexus is deployed locally, use nexus url (e.g.
+    http://nexus.ci:8081/repository/bower-mirror/)
   displayName: Bower mirror url
   name: BOWER_MIRROR
 - description: Decision Server Coolstore Rules Container Spec
   name: KIE_CONTAINER_DEPLOYMENT
   required: true
   value: CoolStoreRulesContainer=com.redhat:coolstore:2.0.0
+- description: My Image
+  name: BUILDER_IMAGE_OSTEG
+  required: true
+  value: java:openjdk-8-jdk
