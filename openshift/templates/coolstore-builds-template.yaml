@@ -231,9 +231,8 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          namespace: openshift
-          name: redhat-openjdk18-openshift:1.1
+          kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
     resources:
       limits:
@@ -321,9 +320,8 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.1
-          namespace: openshift
+          kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
 # Reviews service
 - apiVersion: v1
@@ -358,16 +356,15 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.1
-          namespace: openshift
+		  kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
 parameters:
 - description: Git source URI for application
   displayName: Git source repository
   name: GIT_URI
   required: true
-  value: https://github.com/jbossdemocentral/coolstore-microservice
+  value: https://github.com/akash-prajapati/coolstore-microservice
 - description: Git branch/tag reference
   displayName: Git branch/tag reference
   name: GIT_REF
