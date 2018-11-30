@@ -788,7 +788,7 @@ objects:
           value: ${MAVEN_MIRROR_URL}
         from:
           kind: DockerImage
-          name: java:openjdk-8-jdk
+          name: ${BUILDER_IMAGE_OSTEG}
       type: Source
     triggers:
     - type: ConfigChange
@@ -1062,7 +1062,7 @@ objects:
           value: ${MAVEN_MIRROR_URL}
         from:
           kind: DockerImage
-          name: java:openjdk-8-jdk
+          name: ${BUILDER_IMAGE_OSTEG}
       type: Source
     triggers:
     - type: ConfigChange
@@ -1351,7 +1351,7 @@ objects:
           value: ${MAVEN_MIRROR_URL}
         from:
           kind: DockerImage
-          name: java:openjdk-8-jdk
+          name: ${BUILDER_IMAGE_OSTEG}
       type: Source
     triggers:
     - type: ConfigChange
@@ -1865,3 +1865,7 @@ parameters:
   value: openshift
   name: IMAGE_STREAM_NAMESPACE
   required: true
+- description: My Image
+  name: BUILDER_IMAGE_OSTEG
+  required: true
+  value: shahjay1112/spring-boot-base:1.0.0
