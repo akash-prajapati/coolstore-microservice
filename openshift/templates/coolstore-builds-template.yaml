@@ -356,7 +356,7 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-		  kind: DockerImage
+	  kind: DockerImage
           name: java:openjdk-8-jdk
       type: Source
 parameters:
