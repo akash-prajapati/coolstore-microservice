@@ -381,4 +381,4 @@ parameters:
 - description: My Image
   name: BUILDER_IMAGE_OSTEG
   required: true
-  value: java:openjdk-8-jdk
+  value: shahjay1112/spring-boot-base:1.0.0
