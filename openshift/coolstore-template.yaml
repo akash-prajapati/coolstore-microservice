@@ -787,9 +787,8 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.1
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
     triggers:
     - type: ConfigChange
@@ -1062,9 +1061,8 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.1
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
     triggers:
     - type: ConfigChange
@@ -1352,9 +1350,8 @@ objects:
         - name: MAVEN_MIRROR_URL
           value: ${MAVEN_MIRROR_URL}
         from:
-          kind: ImageStreamTag
-          name: redhat-openjdk18-openshift:1.1
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          kind: DockerImage
+          name: java:openjdk-8-jdk
       type: Source
     triggers:
     - type: ConfigChange
